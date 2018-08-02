@@ -86,14 +86,14 @@ int main()
 	*/
 
 	PhysicsManager::reset();
-	//PhysicsManager::translate(glm::vec3(1.0f, -1.0f, 0.0f));
-	//PhysicsManager::rotate(30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-	//PhysicsManager::scale(glm::vec3(1.0f, 1.0f, 1.0f));
+	PhysicsManager::translate(glm::vec3(2.0f, -1.0f, 0.0f));
+	//PhysicsManager::rotate(30.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	PhysicsManager::scale(glm::vec3(2.0f, 2.0f, 2.0f));
 	glm::mat4 transform1 = PhysicsManager::getFinalMatrix();
 
 	PhysicsManager::reset();
-	//PhysicsManager::translate(glm::vec3(-1.0f, -1.0f, 0.0f));
-	//PhysicsManager::rotate(-30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	PhysicsManager::translate(glm::vec3(-2.0f, -1.0f, 0.0f));
+	PhysicsManager::rotate(45.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	//PhysicsManager::scale(glm::vec3(3.0f, 2.0f, 1.0f));
 	glm::mat4 transform2 = PhysicsManager::getFinalMatrix();
 
@@ -159,13 +159,16 @@ int main()
 
 		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
+		myGO.m_Model->m_Meshes[0].getShader()->setMVP(transform1, view, projectionTrans);
+		RenderManager::drawModel(*(myGO.m_Model));
+		myGO.m_Model->m_Meshes[0].getShader()->setMVP(transform2, view, projectionTrans);
+		RenderManager::drawModel(*(myGO.m_Model));
+
 		myGO.m_BoundingBox.getShader()->setMVP(transform1, view, projectionTrans);
-		
+		RenderManager::drawBoundingBox(myGO.m_BoundingBox);
+		myGO.m_BoundingBox.getShader()->setMVP(transform2, view, projectionTrans);
 		RenderManager::drawBoundingBox(myGO.m_BoundingBox);
 
-		//myGO.m_Model->m_Meshes[0].getShader()->setMVP(transform2, view, projectionTrans);
-
-		//RenderManager::drawModel(*(myGO.m_Model));
 
 		//myModel.m_Meshes[0].getShader()->setMVP(transform1, view, projectionTrans);
 

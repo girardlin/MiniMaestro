@@ -44,7 +44,7 @@ void RenderManager::drawMesh(Shader& shader, std::vector <Texture>& meshTextureV
 	}
 	glActiveTexture(GL_TEXTURE0);
 	
-	
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	shader.use();
 	//draw call
@@ -102,5 +102,5 @@ void RenderManager::drawBoundingBox(BoundingBox& input_BB)
 	glDrawElements(GL_TRIANGLES, input_BB.m_Indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }

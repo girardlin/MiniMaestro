@@ -43,6 +43,39 @@ void BoundingBox::setBoundingVertices(float3D tftl, float3D tfbr, float3D bftl, 
 	std::cout << "Bounding box bfbr values: " << m_bfbr.a << " - " << m_bfbr.b << " - " << m_bfbr.c << std::endl;
 
 	setupShader(vertexShaderSourcePath, fragmentShaderSourcePath);
+	/*
+	m_tftl.a -= 0.1;
+	m_tftl.b += 0.1;
+	m_tftl.c -= 0.1;
+
+	m_tftr.a += 0.1;
+	m_tftr.b += 0.1;
+	m_tftr.c -= 0.1;
+
+	m_tfbl.a -= 0.1;
+	m_tfbl.b += 0.1;
+	m_tfbl.c += 0.1;
+
+	m_tfbr.a += 0.1;
+	m_tfbr.b += 0.1;
+	m_tfbr.c += 0.1;
+
+	m_bftl.a -= 0.1;
+	m_bftl.b -= 0.1;
+	m_bftl.c -= 0.1;
+
+	m_bftr.a += 0.1;
+	m_bftr.b -= 0.1;
+	m_bftr.c -= 0.1;
+
+	m_bfbl.a -= 0.1;
+	m_bfbl.b -= 0.1;
+	m_bfbl.c += 0.1;
+
+	m_bfbr.a += 0.1;
+	m_bfbr.b -= 0.1;
+	m_bfbr.c += 0.1;
+	*/
 
 	//m_Vertices.clear();
 
@@ -54,6 +87,8 @@ void BoundingBox::setBoundingVertices(float3D tftl, float3D tfbr, float3D bftl, 
 	m_Vertices.push_back(m_bftr);
 	m_Vertices.push_back(m_bfbl);
 	m_Vertices.push_back(m_bfbr);
+
+	
 
 	
 	//m_Indices.clear();
