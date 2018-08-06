@@ -123,6 +123,7 @@
   <ItemGroup>
     <ClCompile Include="..\Dependencies\glad.c" />
     <ClCompile Include="entity\GameObject.cpp" />
+    <ClCompile Include="graphics\Camera.cpp" />
     <ClCompile Include="graphics\model\Mesh.cpp" />
     <ClCompile Include="graphics\model\Model.cpp" />
     <ClCompile Include="graphics\RenderManager.cpp" />

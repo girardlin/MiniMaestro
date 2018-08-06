@@ -23,10 +23,10 @@ public:
 
 	//getters
 	GLFWwindow* getWindow();
-	glm::vec3 getCameraFront();
+	//glm::vec3 getCameraFront();
 
 	//setters
-	void setCameraFront(glm::vec3 input);
+	//void setCameraFront(glm::vec3 input);
 
 	//other
 	void update();

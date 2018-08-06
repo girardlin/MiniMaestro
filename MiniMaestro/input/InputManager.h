@@ -7,6 +7,9 @@
 #include "../../Dependencies/glm/gtc/matrix_transform.hpp"
 #include "../../Dependencies/glm/gtc/type_ptr.hpp"
 #include <string>
+#include "../graphics/Camera.h"
+
+
 
 class InputManager
 {
@@ -23,12 +26,13 @@ public:
 
 	//setters
 	static void setTakingInputs(bool);
-	static void setPointerToWindow(GLFWwindow*);
+	static void setPointerToWindow(GLFWwindow* affectedWindow, Camera* affectedCamera);
 
 	//getters
 	static bool getTakingInputs();
-	static glm::vec3 getCameraFrontValue();
+	//static glm::vec3 getCameraFrontValue();
+	static Camera* m_AffectedCamera;
 
 	//other
-	static void processInput(float& movementSpeed, glm::vec3& cameraPosInput, glm::vec3& cameraFrontInput, glm::vec3& cameraUpInput);
+	static void processInput();
 };

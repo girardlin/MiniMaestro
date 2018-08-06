@@ -47,7 +47,7 @@ WindowManager::WindowManager(unsigned int width, unsigned int height, const char
 
 	//inputs
 	InputManager::setTakingInputs(true);
-	InputManager::setPointerToWindow(m_Window);
+	
 
 	glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
