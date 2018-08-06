@@ -4,6 +4,7 @@
 
 std::vector <Model*>* RenderManager::renderedModels;
 
+
 void RenderManager::drawMesh(Shader& shader, std::vector <Texture>& meshTextureVector, std::vector <unsigned int>& meshIndexVector , unsigned int* VAO)
 {
 	if (!renderedModels)
@@ -44,7 +45,6 @@ void RenderManager::drawMesh(Shader& shader, std::vector <Texture>& meshTextureV
 	}
 	glActiveTexture(GL_TEXTURE0);
 	
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 
@@ -68,20 +68,22 @@ void RenderManager::drawModel(Shader& shader, std::vector <Mesh>& modelMeshVecto
 
 void RenderManager::drawModel(Shader& shader, Model& modelInput)
 {
+	renderedModels->push_back(&modelInput);
 	for (unsigned int i = 0; i < modelInput.m_Meshes.size(); i++)
 	{
 		drawMesh(shader, modelInput.m_Meshes[i].m_Textures, modelInput.m_Meshes[i].m_Indices, modelInput.m_Meshes[i].getVAO());
 	}
-	renderedModels->push_back(&modelInput);
+	
 }
 
 void RenderManager::drawModel(Model& modelInput)
 {
+	renderedModels->push_back(&modelInput);
 	for (unsigned int i = 0; i < modelInput.m_Meshes.size(); i++)
 	{
 		drawMesh(*(modelInput.m_Meshes[i].getShader()), modelInput.m_Meshes[i].m_Textures, modelInput.m_Meshes[i].m_Indices, modelInput.m_Meshes[i].getVAO());
 	}
-	renderedModels->push_back(&modelInput);
+	
 }
 
 void RenderManager::createRenderedModelsVector()
@@ -105,4 +107,10 @@ void RenderManager::drawBoundingBox(BoundingBox& input_BB)
 	glBindVertexArray(0);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+std::vector <Model*> RenderManager::getRenderedModels()
+{
+	return *(renderedModels);
 }

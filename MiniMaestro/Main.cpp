@@ -122,6 +122,8 @@ int main()
 
 		RenderManager::createRenderedModelsVector();
 
+		
+
 		//trans = glm::rotate(trans, (float)glfwGetTime()/100, glm::vec3(0.0f, 0.0f, 1.0f));
 		//glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
@@ -156,7 +158,7 @@ int main()
 
 		
 
-	
+		//std::cout << "Size of rendered models: " << RenderManager::getRenderedModels().size() << std::endl;
 
 		//myModel.m_Meshes[0].getShader()->setMVP(transform1, view, projectionTrans);
 

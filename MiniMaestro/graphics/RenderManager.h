@@ -27,6 +27,8 @@ public:
 	static void drawModel(Model&);
 	static void drawBoundingBox(BoundingBox&);
 
+	static std::vector <Model*> getRenderedModels();
+
 	static void createRenderedModelsVector();
 	static void clearRenderedModelsVector();
 };

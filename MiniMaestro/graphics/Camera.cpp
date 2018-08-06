@@ -11,7 +11,7 @@ Camera::Camera(glm::vec3 Position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 Up = 
 
 
 	//m_ViewMatrix = glm::mat4(1.0f);
-	m_MovementSpeed = 1.0f;
+	m_MovementSpeed = 2.0f;
 	m_MouseSensitivity = 0.1f;
 
 	updateCameraVectors();
