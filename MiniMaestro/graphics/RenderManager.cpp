@@ -2,14 +2,14 @@
 
 #include "RenderManager.h"
 
-std::vector <Model*>* RenderManager::renderedModels;
+std::vector <GameObject*>* RenderManager::renderedObjects;
 
 
 void RenderManager::drawMesh(Shader& shader, std::vector <Texture>& meshTextureVector, std::vector <unsigned int>& meshIndexVector , unsigned int* VAO)
 {
-	if (!renderedModels)
+	if (!renderedObjects)
 	{
-		std::cout << "Unable to place model into renderedModels" << std::endl;
+		std::cout << "Unable to place model into renderedObjects" << std::endl;
 		return;
 	}
 	//number of diffuse and specular textures
@@ -68,7 +68,7 @@ void RenderManager::drawModel(Shader& shader, std::vector <Mesh>& modelMeshVecto
 
 void RenderManager::drawModel(Shader& shader, Model& modelInput)
 {
-	renderedModels->push_back(&modelInput);
+	
 	for (unsigned int i = 0; i < modelInput.m_Meshes.size(); i++)
 	{
 		drawMesh(shader, modelInput.m_Meshes[i].m_Textures, modelInput.m_Meshes[i].m_Indices, modelInput.m_Meshes[i].getVAO());
@@ -78,7 +78,7 @@ void RenderManager::drawModel(Shader& shader, Model& modelInput)
 
 void RenderManager::drawModel(Model& modelInput)
 {
-	renderedModels->push_back(&modelInput);
+	
 	for (unsigned int i = 0; i < modelInput.m_Meshes.size(); i++)
 	{
 		drawMesh(*(modelInput.m_Meshes[i].getShader()), modelInput.m_Meshes[i].m_Textures, modelInput.m_Meshes[i].m_Indices, modelInput.m_Meshes[i].getVAO());
@@ -86,14 +86,24 @@ void RenderManager::drawModel(Model& modelInput)
 	
 }
 
-void RenderManager::createRenderedModelsVector()
+void RenderManager::drawGO(GameObject& GOInput)
 {
-	renderedModels = new std::vector <Model*>;
+	renderedObjects->push_back(&GOInput);
+	for (unsigned int i = 0; i < GOInput.m_Model->m_Meshes.size(); i++)
+	{
+		drawMesh(*(GOInput.m_Model->m_Meshes[i].getShader()), GOInput.m_Model->m_Meshes[i].m_Textures, GOInput.m_Model->m_Meshes[i].m_Indices, GOInput.m_Model->m_Meshes[i].getVAO());
+	}
+
 }
 
-void RenderManager::clearRenderedModelsVector()
+void RenderManager::createRenderedObjectsVector()
 {
-	delete renderedModels;
+	renderedObjects = new std::vector <GameObject*>;
+}
+
+void RenderManager::clearRenderedObjectsVector()
+{
+	delete renderedObjects;
 }
 
 void RenderManager::drawBoundingBox(BoundingBox& input_BB)
@@ -110,7 +120,43 @@ void RenderManager::drawBoundingBox(BoundingBox& input_BB)
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
-std::vector <Model*> RenderManager::getRenderedModels()
+std::vector <GameObject*> RenderManager::getRenderedObjects()
 {
-	return *(renderedModels);
+	return *(renderedObjects);
+
+	
+}
+
+void RenderManager::sortRenderedObjectsVector()
+{
+	bool swapped;
+	int i, j;
+	GameObject* placeholder;
+	
+	for (i = 0; i < renderedObjects->size() - 1; i++)
+	{
+		swapped = false;
+		for (j = 0; j < renderedObjects->size() - i - 1; j++)
+		{
+			if ((*(renderedObjects))[j]->m_FinalPosition.z > (*(renderedObjects))[j + 1]->m_FinalPosition.z)
+			{
+				placeholder = (*(renderedObjects))[j];
+				(*(renderedObjects))[j] = (*(renderedObjects))[j + 1];
+				(*(renderedObjects))[j + 1] = placeholder;
+
+				swapped = true;
+			}
+		}
+		if (!swapped)
+		{
+			break;
+		}
+		
+	}
+	
+	for (i = 0; i < renderedObjects->size(); i++)
+	{
+		std::cout << (*(renderedObjects))[i]->m_Model->directory << std::endl;
+	}
+	
 }

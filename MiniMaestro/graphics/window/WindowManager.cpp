@@ -73,7 +73,7 @@ void WindowManager::update()
 {
 	//InputManager::processInput();
 	
-
+	
 	glfwSwapBuffers(m_Window);
 	glfwPollEvents();
 }

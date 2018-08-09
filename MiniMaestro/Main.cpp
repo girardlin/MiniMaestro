@@ -15,6 +15,32 @@
 #include "../Dependencies/glm/gtc/type_ptr.hpp"
 
 
+glm::vec4 multiplyMatrixVector(glm::mat4& matrixInput, glm::vec4& vectorInput)
+{
+	glm::vec4 output;
+	//output.x = 1.0f;
+	
+	output.x = (matrixInput[0][0] * vectorInput.x) + (matrixInput[1][0] * vectorInput.y) + (matrixInput[2][0] * vectorInput.z) + (matrixInput[3][0] * vectorInput.w);
+	output.y = (matrixInput[0][1] * vectorInput.x) + (matrixInput[1][1] * vectorInput.y) + (matrixInput[2][1] * vectorInput.z) + (matrixInput[3][1] * vectorInput.w);
+	output.z = (matrixInput[0][2] * vectorInput.x) + (matrixInput[1][2] * vectorInput.y) + (matrixInput[2][2] * vectorInput.z) + (matrixInput[3][2] * vectorInput.w);
+	output.w = (matrixInput[0][3] * vectorInput.x) + (matrixInput[1][3] * vectorInput.y) + (matrixInput[2][3] * vectorInput.z) + (matrixInput[3][3] * vectorInput.w);
+	
+	return output;
+}
+
+
+glm::vec4 multiply3MatrixVector(glm::mat4& matrixInput1, glm::mat4& matrixInput2, glm::mat4& matrixInput3, glm::vec4& vectorInput)
+{
+	glm::vec4 output;
+
+	output = multiplyMatrixVector(matrixInput1, vectorInput);
+	output = multiplyMatrixVector(matrixInput2, output);
+	output = multiplyMatrixVector(matrixInput3, output);
+
+	std::cout << "Output values: " << output.x << " - " << output.y << " - " << output.z << " - " << output.w << std::endl;
+	return output;
+}
+
 
 int main()
 {
@@ -108,6 +134,7 @@ int main()
 
 	glm::mat4 view = glm::mat4(1.0f);
 
+	
 
 	//engine loop
 	while (!glfwWindowShouldClose(myWindowManager.getWindow()))
@@ -120,7 +147,7 @@ int main()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		RenderManager::createRenderedModelsVector();
+		RenderManager::createRenderedObjectsVector();
 
 		
 
@@ -140,8 +167,9 @@ int main()
 		
 
 		
-		RenderManager::drawModel(*(myGO.m_Model)); 
+		RenderManager::drawGO(myGO); 
 		myGO.m_Model->m_Meshes[0].getShader()->setMVP(transform1, view, projectionTrans);
+		myGO.m_FinalPosition = multiply3MatrixVector(transform1, view, projectionTrans, myGO.m_Position);
 	
 		
 		RenderManager::drawBoundingBox(myGO.m_BoundingBox);
@@ -149,8 +177,9 @@ int main()
 
 
 
-		RenderManager::drawModel(*(myGO2.m_Model));
+		RenderManager::drawGO(myGO2);
 		myGO2.m_Model->m_Meshes[0].getShader()->setMVP(transform2, view, projectionTrans);
+		myGO2.m_FinalPosition = multiply3MatrixVector(transform2, view, projectionTrans, myGO2.m_Position);
 
 
 		RenderManager::drawBoundingBox(myGO2.m_BoundingBox);
@@ -173,10 +202,15 @@ int main()
 
 		//RenderManager::drawModel(myThirdModel);
 		
+
+		RenderManager::sortRenderedObjectsVector();
+		
 		
 		myWindowManager.update();
 
-		RenderManager::clearRenderedModelsVector();
+		RenderManager::clearRenderedObjectsVector();
+
+		Sleep(100);
 		
 	}
 	glfwTerminate();

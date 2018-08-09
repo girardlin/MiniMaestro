@@ -12,23 +12,26 @@
 #include "model/Model.h"
 #include "..\graphics\shaders\Shader.h"
 #include "..\physics\BoundingBox.h"
+#include "..\entity\GameObject.h"
 
 
 class RenderManager
 {
 private:
 	RenderManager() { }
-	static std::vector <Model*>* renderedModels;
+	static std::vector <GameObject*>* renderedObjects;
 
 public:
 	static void drawMesh(Shader& shader, std::vector <Texture>& meshTextureVector, std::vector <unsigned int>& meshIndexVector, unsigned int* VAO);
 	static void drawModel(Shader& shader, std::vector <Mesh>& modelMeshVector);
 	static void drawModel(Shader& shader, Model& modelInput);
 	static void drawModel(Model&);
+	static void drawGO(GameObject&);
 	static void drawBoundingBox(BoundingBox&);
 
-	static std::vector <Model*> getRenderedModels();
+	static std::vector <GameObject*> getRenderedObjects();
 
-	static void createRenderedModelsVector();
-	static void clearRenderedModelsVector();
+	static void createRenderedObjectsVector();
+	static void clearRenderedObjectsVector();
+	static void sortRenderedObjectsVector();
 };

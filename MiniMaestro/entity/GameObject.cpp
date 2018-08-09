@@ -21,6 +21,12 @@ GameObject::GameObject(const char* path, bool& isInteractable)
 	m_BoundingBox.setBoundingVertices(tftlplaceholder, tfbrplaceholder, bftlplaceholder, somePathA, somePathB);
 	
 	std::cout << "Created bounding box!" << std::endl;
+
+	m_Position.x = ((m_Model->smallestX + m_Model->biggestX) / 2);
+	m_Position.y = ((m_Model->smallestY + m_Model->biggestY) / 2);
+	m_Position.z = ((m_Model->smallestZ + m_Model->biggestZ) / 2);
+	m_Position.w = 1;
+
 }
 
 GameObject::GameObject(const char* path, bool isInteractable)
@@ -41,6 +47,11 @@ GameObject::GameObject(const char* path, bool isInteractable)
 
 	m_BoundingBox.setBoundingVertices(tftlplaceholder, tfbrplaceholder, bftlplaceholder, somePathA, somePathB);
 	std::cout << "Created bounding box!" << std::endl;
+
+	m_Position.x = ((m_Model->smallestX + m_Model->biggestX) / 2);
+	m_Position.y = ((m_Model->smallestY + m_Model->biggestY) / 2);
+	m_Position.z = ((m_Model->smallestZ + m_Model->biggestZ) / 2);
+	m_Position.w = 1;
 }
 
 GameObject::~GameObject()

@@ -1,7 +1,10 @@
 #pragma once
 
+#include <iostream>
 #include <string>
-
+#include "..\..\Dependencies\glm\glm.hpp"
+#include "..\..\Dependencies\glm\gtc\matrix_transform.hpp"
+#include "..\..\Dependencies\glm\gtc\type_ptr.hpp"
 
 struct float2D
 {
@@ -12,6 +15,7 @@ struct float3D
 {
 	float a, b, c;
 };
+
 
 struct Vertex 
 {
@@ -27,3 +31,5 @@ struct Texture
 	std::string type;
 	std::string path;
 };
+
+
