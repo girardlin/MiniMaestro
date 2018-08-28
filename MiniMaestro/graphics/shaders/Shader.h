@@ -15,6 +15,7 @@ public:
 	Shader(const char* vertexShaderSourcePath, const char* fragmentShaderSourcePath);
 	~Shader();
 
+	//comment
 	unsigned int ID;
 	
 	void use();
